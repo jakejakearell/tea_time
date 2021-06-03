@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       post 'subscription', to: 'user_subcriptions#create'
+      put 'subscription', to: 'user_subcriptions#update'
     end
   end
 end
