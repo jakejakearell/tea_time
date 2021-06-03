@@ -16,6 +16,10 @@
 5. run `rails s` and explore the endpoints below!
 6. run the test suite: `bundle exec rspec`
 
+## Database Schema
+
+![alt_text](https://user-images.githubusercontent.com/58375638/120696536-ebb43c80-c469-11eb-9fe4-59a6ede9725d.png)
+
 ## Endpoints
 
 ### Subscribe: subscribes a customer to a tea subscription 
@@ -36,20 +40,12 @@ Response body:
 ```
 {
     "data": {
-        "id": null,
+        "id": "2",
         "type": "user_subscription",
         "attributes": {
-            "user": {
-                "id": 1
-                }
-            }
-            "subscription": {
-                "subscription_plan_id": 1,
-                "active": true,
-                "created_at": "2021-06-01T01:49:46.000Z",
-                "updated_at": "2021-06-01T01:49:46.000Z"
-            }
-          }  
+            "user_id": 1,
+            "subscription_id": 2,
+            "active": true
         }
     }
 }
@@ -58,37 +54,30 @@ Response body:
 ### Unsubscribe: retrieves background image for a city's forecast show page
 Returns location parameter, image url, and image credit info.
 
-Request: `PATCH localhost:3000/api/v1/unsubscribe`  
+Request: `PUT localhost:3000/api/v1/subscribe`  
 Returns customer info and subscription information.
 
 
 #### Example:
-Request: `PATCH localhost:3000/api/v1/unsubscribe`  
+Request: `PUT localhost:3000/api/v1/subscribe`  
 Request body:
 ```
 {
     "user_id":6,
-    "subcription_service": 1
+    "subcription_service": 1, 
+    "active": false
 }
 ```
 Response body:
 ```
 {
     "data": {
-        "id": null,
+        "id": "2",
         "type": "user_subscription",
         "attributes": {
-            "user": {
-                "id": 1
-                }
-            }
-            "subscription": {
-                "subscription_plan_id": 1,
-                "active": true,
-                "created_at": "2021-06-01T01:49:46.000Z",
-                "updated_at": "2021-06-01T01:49:46.000Z"
-            }
-          }  
+            "user_id": 1,
+            "subscription_id": 2,
+            "active": false
         }
     }
 }
@@ -107,35 +96,17 @@ Request: `GET localhost:3000/api/v1/users/1/teas`
 Response body:
 ```
 {
-  "data": [
-    {
-      "id": "1",
-        "type": "tea",
-        "attributes": {
-          "type": "Monthly",
-          "price": 10.99,
-          "active" true
+    "data": [
+        {
+            "id": "1",
+            "type": "subscriptions",
+            "attributes": {
+                "title": "good tea",
+                "price": 213.12,
+                "frequency": "daily"
+            }
         }
-    },
-    {
-      "id": "2",
-      "type": "tea",
-      "attributes": {
-        "type": "Weekly",
-        "price": 190.99,
-        "active" true
-      }
-    },
-    {
-      "id": "3",
-      "type": "tea",
-      "attributes"tea: {
-        "type": "Annual",
-        "price": 100.99,
-        "active" false
-      }
-    }
-  ]
+    ]
 }
 ```
 ## Tools
