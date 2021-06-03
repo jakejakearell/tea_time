@@ -1,5 +1,13 @@
 class Api::V1::UserSubcriptionsController < ApplicationController
 
+  def index
+    begin
+      render json: SubscriptionsSerializer.new(User.find(params[:id]).subscriptions)
+    rescue ActiveRecord::RecordNotFound
+      render json: {error: "No such user",status: 404}, status: 404
+    end
+  end
+
   def create
     subscription = UserSubscription.create(user_subcription_params)
     if subscription.save

@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :subscription do
-    title { "MyString" }
+    title { Faker::Games::Pokemon.name }
     price { 1.5 }
     frequency { "MyString" }
   end
