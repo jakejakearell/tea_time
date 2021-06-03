@@ -19,4 +19,9 @@ RSpec.describe User, type: :model do
       expect(user.errors[:email].to_sentence).to eq("is invalid")
     end
   end
+
+  describe "relationships" do
+    it { should have_many :user_subscriptions }
+    it { should have_many(:subscriptions).through(:user_subscriptions)}
+  end
 end
