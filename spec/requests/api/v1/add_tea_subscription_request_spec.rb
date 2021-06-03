@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Create a pet request' do
+RSpec.describe 'User subscription' do
   describe 'happy path' do
     before :each do
       @user = create(:user)
