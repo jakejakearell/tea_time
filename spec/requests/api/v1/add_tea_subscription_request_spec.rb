@@ -36,4 +36,49 @@ RSpec.describe 'Create a pet request' do
       expect(subscription_json[:data][:attributes][:subscription_id]).to eq(@subscription.id)
     end
   end
+
+  describe 'sad path' do
+    before :each do
+      @user = create(:user)
+      @subscription = create(:subscription)
+    end
+
+    it "will give error if user doesn't exist" do
+      subscription_info = {
+                            user_id: "Mike Jones",
+                            subscription_id: @subscription.id
+                          }
+
+      headers = {"CONTENT_TYPE" => "application/json",
+                 "ACCEPT"       => "application/json"}
+
+      post '/api/v1/subscription', headers: headers, params: subscription_info.to_json
+      expect(response).to_not be_successful
+      expect(response.status).to eq(400)
+
+      subscription_json = JSON.parse(response.body, symbolize_names: true)
+      expect(subscription_json.keys).to eq([:error])
+      expect(subscription_json[:error]).to eq("User must exist")
+    end
+
+    it "will give error if subscription doesn't exist" do
+      subscription_info = {
+                            user_id: @user.id,
+                            subscription_id: 12312
+                          }
+
+      headers = {"CONTENT_TYPE" => "application/json",
+                 "ACCEPT"       => "application/json"}
+
+      post '/api/v1/subscription', headers: headers, params: subscription_info.to_json
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(400)
+
+      subscription_json = JSON.parse(response.body, symbolize_names: true)
+      expect(subscription_json.keys).to eq([:error])
+      expect(subscription_json[:error]).to eq("Subscription must exist")
+
+    end
+  end
 end
