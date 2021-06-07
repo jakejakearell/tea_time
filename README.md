@@ -18,7 +18,7 @@
 
 ## Database Schema
 
-![alt_text](https://user-images.githubusercontent.com/58375638/120696536-ebb43c80-c469-11eb-9fe4-59a6ede9725d.png)
+![alt_text](https://user-images.githubusercontent.com/58375638/121025403-5ca56e00-c762-11eb-937a-784c1dcfdd81.png)
 
 ## Endpoints
 
