@@ -8,4 +8,5 @@ class UserSubscription < ApplicationRecord
     end
     update(active: status)
   end
+
 end

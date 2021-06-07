@@ -2,7 +2,7 @@ class Api::V1::UserSubcriptionsController < ApplicationController
 
   def index
     begin
-      render json: SubscriptionsSerializer.new(User.find(params[:id]).subscriptions)
+      render json: SubscriptionsSerializer.new(User.all_subscriptions(id))
     rescue ActiveRecord::RecordNotFound
       render json: {error: "No such user",status: 404}, status: 404
     end
@@ -11,7 +11,6 @@ class Api::V1::UserSubcriptionsController < ApplicationController
   def create
     subscription = UserSubscription.create(user_subcription_params)
     if subscription.save
-      subscription.update(active: true)
       render json: UserSubscriptionSerializer.new(subscription), status: 201
     else
       render json: { error: subscription.errors.full_messages.to_sentence }, status: :bad_request
@@ -36,6 +35,10 @@ class Api::V1::UserSubcriptionsController < ApplicationController
 
   def user_id
     params[:user_id]
+  end
+
+  def id
+    params[:id]
   end
 
   def subscription_id
